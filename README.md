@@ -29,3 +29,7 @@ After finish the purchasing, an email will send to the user.email
 * Pagination of the product searching pages
 - [x] On the home page we show the trending of the most popular items, the popular products is choosing from the most times of product add to the cart. 
 - [x] Add the comment part of each product, customer can write the comment of each product and see every comments. 
+- [x] Auto Refill stock
+* Warehouses have independent products in stock. An user is not able to set an order exceeding the quatity in stock. When the quatity in stock dropped under threshold, the server will notify the warehouse to refill.
+- [x] Timer scheduling re-send in-flight messages and data stucture to ignore duplicate sequence number.
+- [x] Asynchronous communication with web-interface, world and UPS server.
