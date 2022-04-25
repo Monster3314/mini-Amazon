@@ -463,6 +463,7 @@ public class Amazon {
             builder.setTruckid(sqlExecutor.getTruckIdOfPackage(packageId));
             builder.addPackageid(packageId);
             long seqNum = getSeqNum();
+            builder.setSeqnum(seqNum);
 
             AmazonUps.AUCommands.Builder command = AmazonUps.AUCommands.newBuilder();
             command.addDeliver(builder);
