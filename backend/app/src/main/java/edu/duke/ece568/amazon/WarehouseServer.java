@@ -5,7 +5,7 @@ import java.io.IOException;
 public class WarehouseServer extends ProtobufServer{
 
     public static final int PORT = 23456;
-    public static final String HOST = "vcm-26543.vm.duke.edu";
+    public static final String HOST = "vcm-24203.vm.duke.edu";
 
     public WarehouseServer(long worldId) throws IOException {
         super(HOST, PORT);
