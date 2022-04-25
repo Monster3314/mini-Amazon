@@ -153,6 +153,8 @@ def check_out(request):
         package_form.instance.create_t = create_time
         package_form.instance.deliver_add_x = request.user.profile.address_x
         package_form.instance.deliver_add_y = request.user.profile.address_y
+        orders = Order.objects.filter(buyer=request.user, package__isnull=True, is_pay=False).first()
+        package_form.instance.warehouse_id = orders.item_id.warehouse_id
 
         if package_form.is_valid():
             # change the account money
