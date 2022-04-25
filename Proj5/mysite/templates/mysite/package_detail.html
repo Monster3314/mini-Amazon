@@ -1,0 +1,22 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+    <h1> Your package detail</h1>
+    <div class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start ">
+                <div class="ms-2 me-auto">
+                    <h4 class="fw-bold text-primary font-weight-bold">User Name :{{ object.owner }}</h4>
+                    Package ID (you can use this number to track your package): {{ object.id }} </br>
+                    Deliver Address : ({{ object.deliver_add_x }} , {{ object.deliver_add_y }}) </br>
+                    Order Creation Time : {{ object.create_t }} </br>
+                    Ups Account ID : {{ object.ups_id }}
+
+                    <div class="text-warning">
+                    Package Status : {{ object.status }}
+                        </div>
+                </div>
+            </li>
+</div>
+    <td class="col-2 align-self-center border-top-0">
+    <a href="{{ request.get_full_path }}" class="btn btn-outline-success">Get the latest package status</a>
+    </td>
+{%  endblock content %}

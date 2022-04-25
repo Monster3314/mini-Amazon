@@ -1,0 +1,47 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+    <h1> Detail Page</h1>
+    <div class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start ">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold text-primary font-weight-bold">{{ object.description }}</div>
+                    {% if user.is_authenticated %}
+                        inventory : {{ object.inventory }} </br>
+                    {% endif %}
+                    category : {{ object.category }}
+                </div>
+                <span class="badge bg-primary rounded-pill ">price : {{ object.price }}</span>
+            </li>
+        {% if user.is_authenticated %}
+            {% if user.profile %}
+            <a href="{% url 'add_to_cart' object.id %}" class="list-group-item list-group-item-action text-center list-group-item-success">Add this item to the cart</a>
+            {% else %}
+            <a href="{% url 'profile'  %}" class="list-group-item list-group-item-action text-center list-group-item-success">Please complete your address info in the profile page, inorder to see wether the product is sold in your area</a>
+            {% endif %}
+        {% else %}
+    <a href="{% url 'login' %}" class="list-group-item list-group-item-action text-center list-group-item-success">You should login first if you want to buy this item</a>
+        {% endif %}
+</div>
+
+    </br>
+    <hr>
+    <h1>Comments...</h1>
+    {% if not object.comments.all %}
+        No comments yet...<a href="{% url 'add_comments' object.id %}"> add one... </a>
+    {% else %}
+        </br>
+        <div class="list-group">
+                {% for comment in object.comments.all %}
+                    <li class="list-group-item  ">
+                    <strong>user : {{ comment.user_name }} ,  time : {{ comment.created_time }}</strong>   </br></br>
+                    comment : {{ comment.body }}
+                    </li>
+                {% endfor %}
+
+        </div>
+        </br>
+          <a href="{% url 'add_comments' object.id %}" >add comments</a>
+    {% endif %}
+    </br>
+
+{%  endblock content %}

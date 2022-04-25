@@ -1,0 +1,74 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+{#search goods#}
+    <div class="card">
+        <div class="card-body text-center">
+            <h5 class="card-title font-weight-bold text-secondary ">Search the goods you want </h5>
+            <form action="{% url 'search' %}" method="GET" value="{{ request.GET.q }}">
+                <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Enter the item name"/>
+                <input class="btn btn-primary" type="submit" name="submit" value="Search"/>
+            </form>
+        </div>
+    </div>
+{#search category#}
+<div class="card">
+        <div class="card-body text-center">
+            <h5 class="card-title font-weight-bold text-secondary ">Search the category you want </h5>
+            <form action="{% url 'search' %}" method="GET" value="{{ request.GET.q }}">
+                <input type="text" name="category" value="{{ request.GET.q }}" placeholder="Enter the category name"/>
+                <input class="btn btn-primary" type="submit" name="submit" value="Search"/>
+            </form>
+        </div>
+    </div>
+
+{#    #}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title text-center text-secondary font-weight-bold ">Result </h5>
+            {% if submitbutton == 'Search' and request.GET.q != '' %}
+                {% if results %}
+                    {% for product in results %}
+                        <div class="list-group">
+                            <a href="{% url 'product_detail' product.id %}" class="list-group-item" aria-current="true">
+                                <li class="list-group-item d-flex justify-content-between align-items-start ">
+                                    <div class="ms-2 me-auto">
+                                        <h2 class="fw-bold text-primary font-weight-bold">{{ product.description }}</h2>
+{#                                        inventory : {{ product.inventory }} </br>#}
+{#                                        category : {{ product.category }}#}
+                                    </div>
+                                      <div style="width:50%;height:50%">
+                            <img src="{{ product.img }}" style="width: auto; height: auto; max-width: 100%; max-height: 100%;" align ="right">
+</div>
+                                    <span class="badge bg-primary rounded-pill ">price : {{ product.price }}</span>
+
+                                </li>
+                            </a>
+                        </div>
+                    {% endfor %}
+                        <div class="pagination ">
+    <span class="step-links ">
+        {% if results.has_previous %}
+            <a href="?page=1">&laquo; first </a>
+            <a href="?page={{ results.previous_page_number }}"> previous </a>
+        {% endif %}
+
+        <span class="current pull-right">
+            Page {{ results.number }} of {{ results.paginator.num_pages }}.
+        </span>
+
+        {% if results.has_next %}
+            <a href="?page={{ results.next_page_number }}"> next </a>
+            <a href="?page={{ results.paginator.num_pages }}"> last &raquo;</a>
+        {% endif %}
+    </span>
+                    </div>
+                {% else %}
+                    No search results for {{ request.GET.q }}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock content %}

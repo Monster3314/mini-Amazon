@@ -1,0 +1,27 @@
+version: "2"
+services:
+  db:
+    image: postgres:12-alpine3.15
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: amazon
+    restart: always
+  web:
+    build: ./Proj5
+    command: bash -c "./wait-for-it.sh db:5432 --strict -- ./run.sh"
+    ports:
+        - "8000:8000"
+    volumes:
+      - ./Proj5:/code
+    depends_on:
+      - db
+  backend:
+    build: ./backend
+    command: bash -c "./gradlew run"
+    ports:
+      - "45678:45678"
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      - web

@@ -1,0 +1,33 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+
+<div class="card" style="width: 28rem;">
+
+  <div class="card-body">
+    <h5 class="card-title">Search the goods you want :</h5>
+      <form action="{% url 'home' %}" method="GET" value="{{ request.GET.q }}">
+          <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search category"/>
+          <input class="btn btn-primary" type="submit" name="submit" value="Search"/>
+      </form>
+  </div>
+</div>
+
+<div class="card" style="width: 28rem;">
+  <div class="card-body">
+    <h5 class="card-title">Result :</h5>
+        {% if submitbutton == 'Search' and request.GET.q != '' %}
+        {% if results %}
+{#            <h1>Results for <b>{{ request.GET.q }}</b></h1>#}
+            {% for result in results %}
+               We have {{ result.category }}
+            {% endfor %}
+        {% else %}
+            No search results for {{ request.GET.q }}
+        {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+
+{%  endblock content %}
